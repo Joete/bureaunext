@@ -7,6 +7,7 @@
   <meta name="description" content="Bureau Next helps companies cut through complexity, define the right AI strategy and turn it into measurable results." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNyIgZmlsbD0iIzA4MDgwOCIvPgogIDx0ZXh0IHg9IjE2IiB5PSIyMiIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsIHNlcmlmIiBmb250LXNpemU9IjE4IiBmb250LXdlaWdodD0iNDAwIiBmb250LXN0eWxlPSJpdGFsaWMiIGZpbGw9IiNlOTQ1NjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiPk48L3RleHQ+Cjwvc3ZnPg==" />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -981,9 +982,9 @@
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
         </form>
-        <!--- <p style="font-size:12px;color:var(--muted);margin-top:20px;line-height:1.6;">
+        <p style="font-size:12px;color:var(--muted);margin-top:20px;line-height:1.6;">
           Note: To activate live email delivery, connect this form to a backend service such as <a href="https://formspree.io" style="color:var(--accent);text-decoration:none;" target="_blank">Formspree</a>, <a href="https://web3forms.com" style="color:var(--accent);text-decoration:none;" target="_blank">Web3Forms</a>, or your own server endpoint. See integration note in the source code.
-        </p> --->
+        </p>
       </div>
     </div>
   </section>
@@ -1046,7 +1047,7 @@
     //
     // Option C – Your own PHP/Node backend endpoint.
     // ─────────────────────────────────────────────────────────────────────────
-    const FORM_ENDPOINT = 'https://formspree.io/f/mjglbnyo'; // ← Replace this
+    const FORM_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID'; // ← Replace this
 
     const form = document.getElementById('contactForm');
     const submitBtn = document.getElementById('submitBtn');
