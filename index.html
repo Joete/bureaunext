@@ -1,174 +1,1096 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Domain gesichert</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bureau Next — Transformation that truly works</title>
+  <meta name="description" content="Bureau Next helps companies cut through complexity, define the right AI strategy and turn it into measurable results." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNyIgZmlsbD0iIzA4MDgwOCIvPgogIDx0ZXh0IHg9IjE2IiB5PSIyMiIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsIHNlcmlmIiBmb250LXNpemU9IjE4IiBmb250LXdlaWdodD0iNDAwIiBmb250LXN0eWxlPSJpdGFsaWMiIGZpbGw9IiNlOTQ1NjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiPk48L3RleHQ+Cjwvc3ZnPg==" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
   <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     :root {
-      --bg: #0a0a0f;
-      --surface: #13131a;
-      --border: #2a2a3a;
-      --accent: #c8f55a;
-      --accent-dim: rgba(200, 245, 90, 0.12);
-      --text: #e8e8f0;
-      --muted: #5a5a72;
+      --bg: #080808;
+      --surface: #101010;
+      --surface2: #161616;
+      --border: rgba(255,255,255,0.07);
+      --text: #e8e4de;
+      --muted: rgba(255,255,255,0.70);
+      --accent: #e94560;
+      --accent-dim: rgba(233,69,96,0.12);
+      --white: #ffffff;
+      --font-display: 'DM Serif Display', serif;
+      --font-body: 'DM Sans', sans-serif;
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
 
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: 'DM Mono', monospace;
-      min-height: 100vh;
+      font-family: var(--font-body);
+      font-size: 17px;
+      line-height: 1.65;
+      font-weight: 300;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 0 48px;
+      height: 72px;
       display: flex;
       align-items: center;
-      justify-content: center;
-      overflow: hidden;
+      justify-content: space-between;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.4s, background 0.4s, backdrop-filter 0.4s;
     }
-
-    /* Subtle grid background */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(var(--border) 1px, transparent 1px),
-        linear-gradient(90deg, var(--border) 1px, transparent 1px);
-      background-size: 60px 60px;
-      opacity: 0.35;
-      pointer-events: none;
+    nav.scrolled {
+      background: rgba(8,8,8,0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-color: var(--border);
     }
-
-    /* Glow orb */
-    body::after {
-      content: '';
-      position: fixed;
-      top: 40%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(200,245,90,0.07) 0%, transparent 70%);
-      pointer-events: none;
+    .nav-logo {
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 15px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
     }
-
-    .card {
-      position: relative;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      padding: 56px 64px;
-      max-width: 560px;
-      width: 90%;
-      animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
-    }
-
-    /* Corner accents */
-    .card::before, .card::after {
-      content: '';
-      position: absolute;
-      width: 16px;
-      height: 16px;
-      border-color: var(--accent);
-      border-style: solid;
-    }
-    .card::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
-    .card::after  { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
-
-    .badge {
-      display: inline-flex;
+    .nav-links {
+      display: flex;
       align-items: center;
-      gap: 8px;
-      font-size: 10px;
-      letter-spacing: 0.15em;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      font-size: 13px !important;
+      font-weight: 500 !important;
+      color: var(--white) !important;
+      background: var(--accent-dim);
+      border: 1px solid rgba(233,69,96,0.25);
+      padding: 9px 20px;
+      border-radius: 3px;
+      transition: background 0.2s, border-color 0.2s !important;
+    }
+    .nav-cta:hover {
+      background: rgba(233,69,96,0.2) !important;
+      border-color: rgba(233,69,96,0.4) !important;
+      color: var(--white) !important;
+    }
+
+    /* Hamburger */
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+    .nav-toggle span {
+      display: block; width: 22px; height: 1px;
+      background: var(--text); margin: 5px 0;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 120px 48px; max-width: 1200px; margin: 0 auto; }
+    .section-full { max-width: none; padding-left: 0; padding-right: 0; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: 140px;
+      padding-bottom: 100px;
+      position: relative;
+      max-width: none;
+      padding-left: 0; padding-right: 0;
+    }
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 48px;
+      width: 100%;
+    }
+    .hero-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--accent);
-      background: var(--accent-dim);
-      border: 1px solid rgba(200,245,90,0.25);
-      padding: 5px 12px;
-      margin-bottom: 32px;
-      animation: fadeUp 0.8s 0.1s cubic-bezier(0.16,1,0.3,1) both;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.1s forwards;
     }
-
-    .badge::before {
-      content: '';
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--accent);
-      animation: pulse 2s infinite;
-    }
-
-    h1 {
-      font-family: 'DM Serif Display', Georgia, serif;
-      font-size: clamp(2rem, 5vw, 2.75rem);
+    .hero-headline {
+      font-family: var(--font-display);
+      font-size: clamp(52px, 7vw, 96px);
+      line-height: 1.04;
       font-weight: 400;
-      line-height: 1.15;
-      color: var(--text);
-      margin-bottom: 20px;
-      animation: fadeUp 0.8s 0.2s cubic-bezier(0.16,1,0.3,1) both;
+      color: var(--white);
+      max-width: 840px;
+      margin-bottom: 36px;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.25s forwards;
     }
-
-    h1 em {
+    .hero-headline em {
       font-style: italic;
       color: var(--accent);
     }
-
-    p {
-      font-size: 13px;
-      line-height: 1.8;
+    .hero-sub {
+      font-size: 18px;
+      font-weight: 300;
       color: var(--muted);
-      letter-spacing: 0.02em;
-      animation: fadeUp 0.8s 0.3s cubic-bezier(0.16,1,0.3,1) both;
+      max-width: 540px;
+      line-height: 1.7;
+      margin-bottom: 56px;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.4s forwards;
     }
+    .hero-cta-row {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.55s forwards;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--accent);
+      color: #0a0a0a;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      padding: 16px 32px;
+      border-radius: 3px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 400;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .btn-ghost:hover { color: var(--text); }
+    .btn-ghost svg { transition: transform 0.2s; }
+    .btn-ghost:hover svg { transform: translateX(3px); }
 
+    /* Decorative grid lines */
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero-grid::before {
+      content: '';
+      position: absolute;
+      right: 0; top: 0; bottom: 0;
+      width: 40%;
+      background:
+        linear-gradient(to right, transparent 0%, transparent calc(100% - 1px), rgba(255,255,255,0.03) calc(100% - 1px)),
+        repeating-linear-gradient(to right, rgba(255,255,255,0.025) 0, rgba(255,255,255,0.025) 1px, transparent 1px, transparent 80px);
+    }
+    .hero-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(233,69,96,0.05) 0%, transparent 70%);
+      top: 50%; left: 60%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+    .hero-inner { position: relative; z-index: 1; }
+
+    /* ── DIVIDER ── */
     .divider {
-      width: 40px;
-      height: 1px;
+      width: 100%; height: 1px;
       background: var(--border);
-      margin: 28px 0;
-      animation: fadeUp 0.8s 0.35s cubic-bezier(0.16,1,0.3,1) both;
     }
 
-    .meta {
+    /* ── PROBLEM ── */
+    #problem { padding-top: 140px; padding-bottom: 140px; }
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: start;
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 32px;
+    }
+    .display-headline {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 4vw, 54px);
+      line-height: 1.1;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 0;
+    }
+    .display-headline em { font-style: italic; color: var(--accent); }
+    .body-text {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.8;
+    }
+    .body-text p { margin-bottom: 20px; }
+    .body-text p:last-child { margin-bottom: 0; }
+    .impact-list {
+      margin-top: 32px;
+      list-style: none;
+    }
+    .impact-list li {
+      padding: 14px 0;
+      border-top: 1px solid var(--border);
+      font-size: 15px;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .impact-list li::before {
+      content: '';
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* ── POSITIONING ── */
+    #positioning { padding-top: 0; padding-bottom: 140px; }
+    .pos-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 72px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .pos-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0.5;
+    }
+    .pos-card .display-headline { max-width: 700px; margin-bottom: 32px; }
+    .pos-body {
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.8;
+      max-width: 600px;
+      margin-bottom: 40px;
+    }
+    .pos-pillars {
+      display: flex;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+    .pos-pillar {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .pos-pillar::before {
+      content: '';
+      display: block;
+      width: 20px; height: 1px;
+      background: var(--accent);
+    }
+
+    /* ── SERVICES ── */
+    #services { padding-top: 140px; padding-bottom: 140px; }
+    .services-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 72px;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .service-card {
+      background: var(--bg);
+      padding: 52px 48px;
+      transition: background 0.3s;
+      position: relative;
+    }
+    .service-card:hover { background: var(--surface); }
+    .service-num {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      margin-bottom: 28px;
+      font-family: var(--font-body);
+    }
+    .service-title {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+    .service-desc {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+    .service-arrow {
+      position: absolute;
+      bottom: 48px; right: 48px;
+      opacity: 0;
+      transition: opacity 0.3s, transform 0.3s;
+      color: var(--accent);
+    }
+    .service-card:hover .service-arrow { opacity: 1; transform: translate(3px, -3px); }
+
+    /* ── HOW WE WORK ── */
+    #process { padding-top: 0; padding-bottom: 140px; }
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .process-step {
+      padding: 52px 40px;
+      border-right: 1px solid var(--border);
+      position: relative;
+    }
+    .process-step:last-child { border-right: none; }
+    .step-num {
+      font-family: var(--font-display);
+      font-size: 64px;
+      color: rgba(255,255,255,0.04);
+      line-height: 1;
+      margin-bottom: 20px;
+      font-weight: 400;
+    }
+    .step-title {
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .step-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .step-connector {
+      position: absolute;
+      right: -1px; top: 50%;
+      transform: translateY(-50%);
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+      opacity: 0.4;
+    }
+
+    /* ── ABOUT & CREDIBILITY ── */
+    #about { padding-top: 140px; padding-bottom: 0; }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: center;
+    }
+    .about-quote {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 3vw, 42px);
+      font-style: italic;
+      color: var(--text);
+      line-height: 1.3;
+      margin-bottom: 32px;
+    }
+    .stat-row {
+      display: flex;
+      gap: 48px;
+      margin-top: 48px;
+      padding-top: 48px;
+      border-top: 1px solid var(--border);
+    }
+    .stat { }
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 42px;
+      color: var(--white);
+      font-weight: 400;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .stat-label {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    /* ── CREDIBILITY BAND ── */
+    #credibility {
+      padding: 100px 48px;
+      max-width: none;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .cred-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: center;
+    }
+    .cred-headline {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 3.5vw, 48px);
+      font-weight: 400;
+      color: var(--white);
+      line-height: 1.1;
+    }
+    .cred-text {
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+    .cred-text p { margin-bottom: 16px; }
+    .cred-text p:last-child { margin-bottom: 0; }
+
+    /* ── CONTACT ── */
+    #contact { padding-top: 140px; padding-bottom: 140px; }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+    }
+    .contact-left .display-headline { margin-bottom: 24px; }
+    .contact-lead {
+      font-size: 17px;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 56px;
+    }
+    .contact-details { }
+    .contact-item {
       display: flex;
       align-items: center;
       gap: 16px;
+      padding: 20px 0;
+      border-top: 1px solid var(--border);
+      text-decoration: none;
+      color: var(--text);
+      transition: color 0.2s;
+    }
+    .contact-item:last-child { border-bottom: 1px solid var(--border); }
+    .contact-item:hover { color: var(--accent); }
+    .contact-icon {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--accent-dim);
+      border: 1px solid rgba(233,69,96,0.15);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-icon svg { color: var(--accent); }
+    .contact-label {
       font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
       color: var(--muted);
-      letter-spacing: 0.08em;
-      animation: fadeUp 0.8s 0.4s cubic-bezier(0.16,1,0.3,1) both;
+      margin-bottom: 3px;
+    }
+    .contact-value { font-size: 15px; font-weight: 400; }
+
+    /* Form */
+    .contact-form { display: flex; flex-direction: column; gap: 20px; }
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+    .form-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .form-input, .form-textarea {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 14px 18px;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 300;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+      width: 100%;
+    }
+    .form-input:focus, .form-textarea:focus {
+      border-color: rgba(233,69,96,0.4);
+      background: var(--surface2);
+    }
+    .form-textarea { resize: vertical; min-height: 140px; }
+    .form-input::placeholder, .form-textarea::placeholder { color: var(--muted); opacity: 0.6; }
+    .btn-submit {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: var(--accent);
+      color: #0a0a0a;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      padding: 16px 32px;
+      border-radius: 3px;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s;
+      width: 100%;
+    }
+    .btn-submit:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .form-status {
+      font-size: 14px;
+      padding: 14px 18px;
+      border-radius: 3px;
+      display: none;
+    }
+    .form-status.success {
+      display: block;
+      background: rgba(100,200,130,0.1);
+      border: 1px solid rgba(100,200,130,0.3);
+      color: #7de0a0;
+    }
+    .form-status.error {
+      display: block;
+      background: rgba(200,100,100,0.1);
+      border: 1px solid rgba(200,100,100,0.3);
+      color: #e0a0a0;
     }
 
-    .meta span { opacity: 0.4; }
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 52px 48px;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .footer-brand {}
+    .footer-logo {
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 15px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--white);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .footer-claim {
+      font-size: 12px;
+      color: var(--muted);
+      font-style: italic;
+      font-family: var(--font-display);
+    }
+    .footer-contact {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .footer-link {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-link:hover { color: var(--text); }
+    .footer-copy {
+      font-size: 12px;
+      color: rgba(107,101,96,0.5);
+    }
 
+    /* ── ANIMATIONS ── */
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
+      from { opacity: 0; transform: translateY(24px); }
       to   { opacity: 1; transform: translateY(0); }
     }
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
 
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50%       { opacity: 0.3; }
+    /* ── MOBILE ── */
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .nav-toggle { display: block; }
+      nav.open .nav-links {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 72px; left: 0; right: 0;
+        background: rgba(8,8,8,0.97);
+        padding: 32px 24px;
+        border-bottom: 1px solid var(--border);
+        gap: 20px;
+      }
+      section { padding: 80px 24px; }
+      #hero { padding: 120px 24px 80px; }
+      .hero-inner { padding: 0; }
+      .problem-grid, .about-grid, .contact-grid, .cred-inner { grid-template-columns: 1fr; gap: 52px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr 1fr; }
+      .process-step { border-right: none; border-bottom: 1px solid var(--border); }
+      .process-step:nth-child(odd) { border-right: 1px solid var(--border); }
+      .process-step:nth-last-child(-n+2) { border-bottom: none; }
+      .pos-card { padding: 48px 32px; }
+      .services-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+      footer { padding: 40px 24px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; gap: 24px; }
+      .stat-row { gap: 32px; }
+      #credibility { padding: 72px 24px; }
+    }
+    @media (max-width: 540px) {
+      .hero-headline { font-size: 44px; }
+      .process-steps { grid-template-columns: 1fr; }
+      .process-step { border-right: none !important; }
+      .process-step:nth-last-child(-n+2) { border-bottom: 1px solid var(--border); }
+      .process-step:last-child { border-bottom: none; }
+      .hero-cta-row { flex-direction: column; align-items: flex-start; }
+      .pos-pillars { flex-direction: column; gap: 20px; }
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <div class="badge">Status: Aktiv</div>
-    <h1>Diese Domain wurde <em>gesichert</em></h1>
-    <p>
-      Diese Domain ist reserviert und wird geschützt aufbewahrt.
-      Für weitere Informationen wenden Sie sich bitte an den zuständigen Administrator.
-    </p>
-    <div class="divider"></div>
-    <div class="meta">
-      <span>©&nbsp;2026</span>
-      <span>·</span>
-      <span>Alle Rechte vorbehalten</span>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <a href="#" class="nav-logo">Bureau Next</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#problem">Approach</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact" class="nav-cta">Get in touch</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-grid">
+      <div class="hero-glow"></div>
     </div>
-  </div>
+    <div class="hero-inner">
+      <p class="hero-label">AI Strategy & Transformation</p>
+      <h1 class="hero-headline">AI Transformation<br>that <em>actually</em> delivers.</h1>
+      <p class="hero-sub">Bureau Next helps companies cut through complexity, define the right AI strategy and turn it into measurable results.</p>
+      <div class="hero-cta-row">
+        <a href="#contact" class="btn-primary">
+          Book a first conversation
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#services" class="btn-ghost">
+          Our services
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3.5l3.5 3.5L8 10.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section id="problem">
+    <div class="problem-grid">
+      <div class="reveal">
+        <p class="section-label">The Reality</p>
+        <h2 class="display-headline">Most AI initiatives don't fail because of <em>technology.</em></h2>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <div class="body-text">
+          <p>They fail because of missing clarity, lack of prioritization and no real connection to business impact.</p>
+          <p>Companies invest in tools, experiments and isolated use cases — but struggle to turn them into scalable value.</p>
+        </div>
+        <ul class="impact-list">
+          <li>Complexity increases</li>
+          <li>Expectations rise</li>
+          <li>Impact stays low</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- POSITIONING -->
+  <section id="positioning" style="max-width:1200px;">
+    <div class="pos-card reveal">
+      <p class="section-label">Our Approach</p>
+      <h2 class="display-headline">We turn AI into something that <em>actually works.</em></h2>
+      <p class="pos-body">Bureau Next bridges the gap between strategy and execution. We don't just design concepts — we help you implement, operationalize and scale AI in a way that creates real business value.</p>
+      <div class="pos-pillars">
+        <span class="pos-pillar">Clear priorities</span>
+        <span class="pos-pillar">Focused execution</span>
+        <span class="pos-pillar">Measurable outcomes</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="services-header">
+      <div>
+        <p class="section-label reveal">What we do</p>
+        <h2 class="display-headline reveal reveal-delay-1">Our services</h2>
+      </div>
+    </div>
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <p class="service-num">01</p>
+        <h3 class="service-title">AI Strategy &amp; Roadmapping</h3>
+        <p class="service-desc">Define where AI creates real leverage in your business. We identify high-impact use cases and translate them into a clear roadmap.</p>
+        <span class="service-arrow">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 16L16 4M16 4H8M16 4v8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </div>
+      <div class="service-card">
+        <p class="service-num">02</p>
+        <h3 class="service-title">AI Transformation &amp; Implementation</h3>
+        <p class="service-desc">Move from ideas to execution. We integrate AI into your workflows and ensure it delivers results — not just pilot projects.</p>
+        <span class="service-arrow">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 16L16 4M16 4H8M16 4v8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </div>
+      <div class="service-card">
+        <p class="service-num">03</p>
+        <h3 class="service-title">AI Enablement &amp; Coaching</h3>
+        <p class="service-desc">Enable your teams to actually use AI effectively. Hands-on, practical and focused on real application — not just theory.</p>
+        <span class="service-arrow">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 16L16 4M16 4H8M16 4v8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </div>
+      <div class="service-card">
+        <p class="service-num">04</p>
+        <h3 class="service-title">Executive Sparring</h3>
+        <p class="service-desc">Strategic clarity for better decisions. A trusted partner for founders and executives navigating the complexity of AI transformation.</p>
+        <span class="service-arrow">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 16L16 4M16 4H8M16 4v8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process">
+    <p class="section-label reveal">How we work</p>
+    <h2 class="display-headline reveal reveal-delay-1" style="margin-bottom:64px;">A structured path<br>from <em>insight to impact.</em></h2>
+    <div class="process-steps reveal reveal-delay-2">
+      <div class="process-step">
+        <div class="step-num">1</div>
+        <p class="step-title">Understand</p>
+        <p class="step-desc">Analyze your business, current challenges and untapped opportunities in depth.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">2</div>
+        <p class="step-title">Focus</p>
+        <p class="step-desc">Identify what truly matters and where AI creates the highest leverage for your goals.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">3</div>
+        <p class="step-title">Build</p>
+        <p class="step-desc">Implement and integrate AI solutions into real workflows with measurable checkpoints.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">4</div>
+        <p class="step-title">Scale</p>
+        <p class="step-desc">Expand what works. Systematically build on early wins to create lasting organizational impact.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-grid">
+      <div class="reveal">
+        <p class="section-label">Built on real-world experience</p>
+        <p class="about-quote">"Turning complexity into clear, executable solutions."</p>
+        <div class="body-text">
+          <p>Bureau Next is led by an experienced digital and transformation professional with a strong background in building and scaling digital business models.</p>
+          <p>The focus is always the same: clarity over complexity, execution over experimentation, impact over activity.</p>
+        </div>
+        <div class="stat-row">
+          <div class="stat">
+            <div class="stat-num">Senior</div>
+            <div class="stat-label">Advisory Level</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">Real</div>
+            <div class="stat-label">Business Impact</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">100%</div>
+            <div class="stat-label">Execution Focus</div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-2" style="display:flex;align-items:center;justify-content:center;">
+        <div style="border:1px solid var(--border);border-radius:4px;padding:56px 48px;background:var(--surface);width:100%;max-width:400px;">
+          <div style="width:64px;height:64px;background:var(--accent-dim);border:1px solid rgba(233,69,96,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:32px;">
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><circle cx="13" cy="9" r="4.5" stroke="#e94560" stroke-width="1.4"/><path d="M4 22c0-5 4-8 9-8s9 3 9 8" stroke="#e94560" stroke-width="1.4" stroke-linecap="round"/></svg>
+          </div>
+          <p style="font-family:var(--font-display);font-size:22px;color:var(--white);line-height:1.3;margin-bottom:20px;">Digital & Transformation Expert</p>
+          <p style="font-size:14px;color:var(--muted);line-height:1.7;">Extensive background in digital business models, organizational transformation, and AI-driven growth strategies.</p>
+          <div style="margin-top:32px;padding-top:24px;border-top:1px solid var(--border);">
+            <p style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);font-weight:500;">Bureau Next · Transformation that truly works</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CREDIBILITY BAND -->
+  <section id="credibility" class="section-full" style="padding-top:100px;padding-bottom:100px;margin-top:100px;">
+    <div class="cred-inner">
+      <div class="reveal">
+        <p class="section-label">Focused on outcomes</p>
+        <h2 class="cred-headline">Not on activity.<br>Not on <em>hype.</em></h2>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <div class="cred-text">
+          <p>Bureau Next works with companies that want to move beyond experimentation and create real impact with AI.</p>
+          <p>Always with a clear focus on measurable results — not on reports, workshops or slide decks that don't lead anywhere.</p>
+        </div>
+        <a href="#contact" class="btn-primary" style="display:inline-flex;margin-top:36px;">
+          Start a conversation
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-grid">
+      <div class="reveal">
+        <p class="section-label">Get in touch</p>
+        <h2 class="display-headline" style="margin-bottom:24px;">Let's build something<br>that <em>actually works.</em></h2>
+        <p class="contact-lead">If you're serious about turning AI into real business value, let's talk. No pitch, no fluff — just a focused conversation about your situation.</p>
+        <div class="contact-details">
+          <a href="mailto:mail@bureaunext.com" class="contact-item">
+            <div class="contact-icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4h12v9H2V4z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 4l6 5 6-5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <p class="contact-label">Email</p>
+              <p class="contact-value">mail@bureaunext.com</p>
+            </div>
+          </a>
+          <a href="tel:+4915115631671" class="contact-item">
+            <div class="contact-icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5.5 2C5.5 2 4 2 3 4c-1 2 0 5.5 3 8.5s6.5 4 8.5 3c2-1 2-2.5 2-2.5l-3-2-1.5 1.5S10 11 8 9s-3-4-3-4L6.5 3.5 5.5 2z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <p class="contact-label">Phone</p>
+              <p class="contact-value">+49 151-15631671</p>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <form class="contact-form" id="contactForm" novalidate>
+          <div class="form-group">
+            <label class="form-label" for="name">Name</label>
+            <input class="form-input" type="text" id="name" name="name" placeholder="Your name" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="email">Email</label>
+            <input class="form-input" type="email" id="email" name="email" placeholder="your@email.com" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="message">Message</label>
+            <textarea class="form-textarea" id="message" name="message" placeholder="Tell us about your situation and goals…" required></textarea>
+          </div>
+          <div id="formStatus" class="form-status"></div>
+          <button type="submit" class="btn-submit" id="submitBtn">
+            Send message
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </form>
+        <p style="font-size:12px;color:var(--muted);margin-top:20px;line-height:1.6;">
+          Note: To activate live email delivery, connect this form to a backend service such as <a href="https://formspree.io" style="color:var(--accent);text-decoration:none;" target="_blank">Formspree</a>, <a href="https://web3forms.com" style="color:var(--accent);text-decoration:none;" target="_blank">Web3Forms</a>, or your own server endpoint. See integration note in the source code.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">Bureau Next</span>
+        <span class="footer-claim">Transformation that truly works</span>
+      </div>
+      <div class="footer-contact">
+        <a href="mailto:mail@bureaunext.com" class="footer-link">mail@bureaunext.com</a>
+        <a href="tel:+4915115631671" class="footer-link">+49 151-15631671</a>
+      </div>
+      <p class="footer-copy">&copy; 2025 Bureau Next</p>
+    </div>
+  </footer>
+
+  <script>
+    // Nav scroll state
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // Mobile menu
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => {
+      navbar.classList.toggle('open');
+    });
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => navbar.classList.remove('open'));
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Contact form
+    // ─────────────────────────────────────────────────────────────────────────
+    // INTEGRATION NOTE:
+    // To send real emails, replace the fetch URL below with your form endpoint.
+    //
+    // Option A – Formspree (free tier available):
+    //   1. Create account at formspree.io
+    //   2. Create a form → you get an endpoint like https://formspree.io/f/XXXXXX
+    //   3. Replace FORMSPREE_ENDPOINT below with that URL
+    //
+    // Option B – Web3Forms (free, no backend needed):
+    //   1. Get a free access key at web3forms.com
+    //   2. Add a hidden field with name="access_key" and your key as value
+    //   3. POST to https://api.web3forms.com/submit
+    //
+    // Option C – Your own PHP/Node backend endpoint.
+    // ─────────────────────────────────────────────────────────────────────────
+    const FORM_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID'; // ← Replace this
+
+    const form = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const formStatus = document.getElementById('formStatus');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      if (!name || !email || !message) {
+        formStatus.className = 'form-status error';
+        formStatus.textContent = 'Please fill in all fields.';
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+      formStatus.className = 'form-status';
+
+      try {
+        const res = await fetch(FORM_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ name, email, message })
+        });
+
+        if (res.ok) {
+          formStatus.className = 'form-status success';
+          formStatus.textContent = 'Message sent. We\'ll be in touch soon.';
+          form.reset();
+        } else {
+          throw new Error('Server error');
+        }
+      } catch {
+        formStatus.className = 'form-status error';
+        formStatus.textContent = 'Something went wrong. Please reach us directly at mail@bureaunext.com';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = 'Send message <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      }
+    });
+  </script>
 </body>
 </html>
